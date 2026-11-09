@@ -69,4 +69,5 @@ class AccountTest {
     void accountCannotBeCreatedWithoutOwner() {
         assertThrows(IllegalArgumentException.class, () -> new Account("FR76-0002", null, 100));
     }
+
 }
