@@ -4,7 +4,7 @@ import com.project.exception.InsufficientBalanceException;
 
 import java.time.LocalDate;
 
-public class Expense extends Transaction implements Categorisable {
+public class Expense extends Transaction {
     private final ExpenseCategory category;
 
     public Expense(double amount, LocalDate date, String description, ExpenseCategory category) {
@@ -15,7 +15,6 @@ public class Expense extends Transaction implements Categorisable {
         this.category = category;
     }
 
-    @Override
     public ExpenseCategory getCategory() {
         return category;
     }

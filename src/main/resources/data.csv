@@ -1,0 +1,34 @@
+# Données de démarrage de l'application
+# Format : TYPE;champs... (séparateur ";", dates AAAA-MM-JJ, montants avec un point)
+
+# ACCOUNT;numéro;titulaire;solde initial
+ACCOUNT;FR76-3000-0001-2345;Léa Martin;850.00
+
+# BUDGET;catégorie;plafond mensuel
+BUDGET;SHOPPING;150.00
+BUDGET;BEAUTY_AND_WELLNESS;80.00
+BUDGET;FOOD_AND_DINING;250.00
+BUDGET;LEISURE;100.00
+BUDGET;TRANSPORT;75.00
+
+# INCOME;date;montant;description;source
+# EXPENSE;date;montant;description;catégorie
+INCOME;2026-10-01;1850.00;Salaire d'octobre;Employeur
+EXPENSE;2026-10-03;650.00;Loyer d'octobre;HOUSING_AND_BILLS
+EXPENSE;2026-10-08;89.90;Manteau d'hiver;SHOPPING
+EXPENSE;2026-10-15;42.50;Brunch entre amies;FOOD_AND_DINING
+EXPENSE;2026-10-22;35.00;Soin du visage;BEAUTY_AND_WELLNESS
+
+INCOME;2026-11-01;1850.00;Salaire de novembre;Employeur
+EXPENSE;2026-11-02;650.00;Loyer de novembre;HOUSING_AND_BILLS
+EXPENSE;2026-11-04;49.90;Abonnement transports;TRANSPORT
+EXPENSE;2026-11-06;120.00;Bottes en cuir;SHOPPING
+EXPENSE;2026-11-09;45.00;Robe de soirée;SHOPPING
+EXPENSE;2026-11-10;64.20;Courses de la semaine;FOOD_AND_DINING
+INCOME;2026-11-12;150.00;Vente de vêtements;Vente en ligne
+EXPENSE;2026-11-14;38.50;Cinéma et dîner;LEISURE
+EXPENSE;2026-11-15;abc;Montant mal saisi;LEISURE
+EXPENSE;2026-11-18;25.00;Cours de yoga;SPORT
+EXPENSE;2026-11-20;72.00;Coiffeur;BEAUTY_AND_WELLNESS
+EXPENSE;2026-11-22;-10.00;Montant négatif;LEISURE
+EXPENSE;2026-11-25;3000.00;Travaux de l'appartement;HOUSING_AND_BILLS

@@ -3,6 +3,8 @@ package com.project.model;
 import com.project.exception.InsufficientBalanceException;
 import com.project.exception.InvalidAmountException;
 
+import java.util.Locale;
+
 public class Account {
     private final String accountNumber;
     private String owner;
@@ -32,8 +34,8 @@ public class Account {
             throw new InvalidAmountException("Le montant du retrait doit être strictement positif.");
         }
         if (amount > balance) {
-            throw new InsufficientBalanceException(
-                    "Solde insuffisant pour retirer " + amount + " €. Solde actuel : " + balance + " €.");
+            throw new InsufficientBalanceException(String.format(Locale.FRANCE,
+                    "Solde insuffisant pour retirer %.2f €. Solde actuel : %.2f €.", amount, balance));
         }
         balance -= amount;
     }

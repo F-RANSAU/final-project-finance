@@ -3,6 +3,9 @@ package com.project.model;
 import com.project.exception.InvalidAmountException;
 
 public class Budget {
+    // À partir de 80 % du plafond consommé, on prévient avant que le budget ne soit dépassé.
+    private static final double WARNING_THRESHOLD = 80;
+
     private final ExpenseCategory category;
     private double monthlyLimit;
 
@@ -22,6 +25,18 @@ public class Budget {
     /** Une dépense est autorisée tant qu'elle ne fait pas dépasser le plafond (atteindre pile le plafond est permis). */
     public boolean allows(double alreadySpent, double newAmount) {
         return alreadySpent + newAmount <= monthlyLimit;
+    }
+
+    /** Part du plafond déjà consommée, en pourcentage (peut dépasser 100 si le plafond a été baissé entre-temps). */
+    public double getUsagePercentage(double alreadySpent) {
+        if (monthlyLimit == 0) {
+            return alreadySpent > 0 ? 100 : 0;
+        }
+        return alreadySpent * 100 / monthlyLimit;
+    }
+
+    public boolean isNearlyExhausted(double alreadySpent) {
+        return getUsagePercentage(alreadySpent) >= WARNING_THRESHOLD;
     }
 
     public ExpenseCategory getCategory() {
