@@ -11,13 +11,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Garde le budget mensuel de chaque catégorie et décide si une nouvelle dépense est autorisée.
- */
+
 public class BudgetService {
     private final Map<ExpenseCategory, Budget> budgets = new HashMap<>();
 
-    /** Ajoute un budget, ou remplace celui qui existe déjà pour la même catégorie. */
     public void setBudget(Budget budget) {
         if (budget == null) {
             throw new IllegalArgumentException("Le budget ne peut pas être nul.");
@@ -29,12 +26,9 @@ public class BudgetService {
         return Optional.ofNullable(budgets.get(category));
     }
 
-    /**
-     * Refuse la dépense si elle fait dépasser le plafond mensuel de sa catégorie.
-     * Une catégorie sans budget n'est pas limitée.
-     */
     public void checkAllowed(ExpenseCategory category, double alreadySpent, double amount)
             throws BudgetExceededException {
+        // Une catégorie sans budget n'est pas limitée.
         Optional<Budget> budget = findBudget(category);
         if (budget.isPresent() && !budget.get().allows(alreadySpent, amount)) {
             throw new BudgetExceededException(String.format(Locale.FRANCE,

@@ -15,8 +15,7 @@ public class Income extends Transaction {
     }
 
     /**
-     * Pas de "throws" ici : un dépôt ne peut pas échouer par manque de solde.
-     * Une sous-classe a le droit de lever moins d'exceptions que sa classe parente.
+     Pas de throws : un dépôt ne peut pas échouer par manque de solde.
      */
     @Override
     public void applyTo(Account account) {

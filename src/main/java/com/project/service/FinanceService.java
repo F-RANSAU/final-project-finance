@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Enregistre les transactions sur un compte en faisant respecter les règles métier
- * (budgets mensuels et solde suffisant).
- */
+
 public class FinanceService implements TransactionRecorder {
     private final Account account;
     private final BudgetService budgetService;
@@ -32,15 +29,12 @@ public class FinanceService implements TransactionRecorder {
         this.analyser = analyser;
     }
 
-    /**
-     * Le budget est vérifié avant de toucher au compte : si la dépense est refusée,
-     * ni le solde ni l'historique ne changent.
-     */
     @Override
     public void record(Expense expense) throws BudgetExceededException, InsufficientBalanceException {
         if (expense == null) {
             throw new IllegalArgumentException("La dépense ne peut pas être nulle.");
         }
+        // Le budget est vérifié avant de toucher au compte : une dépense refusée ne laisse aucune trace.
         YearMonth month = YearMonth.from(expense.getDate());
         double alreadySpent = analyser.spentInCategory(expenses, expense.getCategory(), month);
         budgetService.checkAllowed(expense.getCategory(), alreadySpent, expense.getAmount());
@@ -63,7 +57,6 @@ public class FinanceService implements TransactionRecorder {
         return account;
     }
 
-    /** Toutes les transactions, dans l'ordre où elles ont été enregistrées. */
     public List<Transaction> getHistory() {
         return Collections.unmodifiableList(history);
     }

@@ -16,10 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Affichage console. Aucune règle métier ici : cette classe ne fait que mettre en forme
- * ce que les services calculent.
- */
+
 public class ReportPrinter {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter MONTH_FORMAT = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRANCE);
@@ -47,7 +44,6 @@ public class ReportPrinter {
         report.getRejections().forEach(rejection -> System.out.println("  ✗ " + rejection));
     }
 
-    /** Relevé de compte : la même boucle affiche revenus et dépenses grâce au polymorphisme. */
     public void printStatement() {
         System.out.println();
         System.out.println("--- Relevé de compte ---");

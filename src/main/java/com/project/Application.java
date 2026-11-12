@@ -12,10 +12,7 @@ import com.project.utils.ImportReport;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * Point d'entrée : assemble les objets puis déroule le scénario
- * chargement → règles métier → affichage. Aucun calcul n'est fait ici.
- */
+
 public class Application {
     private static final String DEFAULT_DATA_FILE = "src/main/resources/data.csv";
 

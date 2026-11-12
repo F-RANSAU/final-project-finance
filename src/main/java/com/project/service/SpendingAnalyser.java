@@ -15,9 +15,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Calculs mensuels. Cette classe ne garde aucun état : elle lit seulement les listes qu'on lui donne.
- */
+
 public class SpendingAnalyser {
 
     public double totalExpenses(List<Expense> expenses, YearMonth month) {
@@ -44,7 +42,6 @@ public class SpendingAnalyser {
                 .max(Comparator.comparingDouble(Expense::getAmount));
     }
 
-    /** Entrées moins sorties sur le mois : marche pour tout type de transaction grâce à getSignedAmount(). */
     public double netCashFlow(List<Transaction> transactions, YearMonth month) {
         return transactions.stream()
                 .filter(t -> isIn(t.getDate(), month))
@@ -52,8 +49,8 @@ public class SpendingAnalyser {
                 .sum();
     }
 
-    /** Les mois présents dans l'historique, du plus ancien au plus récent (un TreeSet trie et retire les doublons). */
     public SortedSet<YearMonth> monthsCovered(List<Transaction> transactions) {
+        // TreeSet : les mois sont triés et sans doublon.
         return transactions.stream()
                 .map(t -> YearMonth.from(t.getDate()))
                 .collect(Collectors.toCollection(TreeSet::new));

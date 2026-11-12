@@ -1,8 +1,5 @@
 package com.project.model;
 
-/**
- * Catégories de dépenses pour le suivi budgétaire.
- */
 public enum ExpenseCategory {
     SHOPPING("Shopping"),
     BEAUTY_AND_WELLNESS("Beauté & Bien-être"),

@@ -34,15 +34,10 @@ public abstract class Transaction {
         return description;
     }
 
-    /**
-     * Chaque type de transaction sait comment il modifie le solde d'un compte :
-     * le service n'a donc pas besoin de tester le type concret.
-     */
     public abstract void applyTo(Account account) throws InsufficientBalanceException;
 
-    /** Effet sur le solde : positif quand l'argent entre, négatif quand il sort. */
+    /** Positif pour une entrée d'argent, négatif pour une sortie.*/
     public abstract double getSignedAmount();
 
-    /** Libellé court affiché sur le relevé de compte. */
     public abstract String getLabel();
 }
