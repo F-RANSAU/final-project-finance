@@ -48,13 +48,13 @@ public class ReportPrinter {
         System.out.println();
         System.out.println("--- Relevé de compte ---");
         for (Transaction transaction : financeService.getHistory()) {
-            System.out.println(String.format(Locale.FRANCE, "%s  %-24s %-26s %+10.2f €",
+            System.out.println(format("%s  %-24s %-26s %+10.2f €",
                     transaction.getDate().format(DATE_FORMAT),
                     transaction.getLabel(),
                     transaction.getDescription(),
                     transaction.getSignedAmount()));
         }
-        System.out.println(String.format(Locale.FRANCE, "Solde actuel : %.2f €", financeService.getAccount().getBalance()));
+        System.out.println(format("Solde actuel : %.2f €", financeService.getAccount().getBalance()));
     }
 
     public void printMonthlySummaries() {
@@ -68,12 +68,12 @@ public class ReportPrinter {
         List<Expense> expenses = financeService.getExpenses();
         System.out.println();
         System.out.println("--- Bilan : " + month.format(MONTH_FORMAT) + " ---");
-        System.out.println(String.format(Locale.FRANCE, "Dépenses totales : %.2f €", analyser.totalExpenses(expenses, month)));
-        System.out.println(String.format(Locale.FRANCE, "Épargne du mois (entrées - sorties) : %+.2f €",
+        System.out.println(format("Dépenses totales : %.2f €", analyser.totalExpenses(expenses, month)));
+        System.out.println(format("Épargne du mois (entrées - sorties) : %+.2f €",
                 analyser.netCashFlow(financeService.getHistory(), month)));
 
         Optional<Expense> largest = analyser.largestExpense(expenses, month);
-        largest.ifPresent(expense -> System.out.println(String.format(Locale.FRANCE,
+        largest.ifPresent(expense -> System.out.println(format(
                 "Plus grosse dépense : %s (%.2f €)", expense.getDescription(), expense.getAmount())));
 
         Map<ExpenseCategory, Double> spending = analyser.spendingByCategory(expenses, month);
@@ -84,7 +84,7 @@ public class ReportPrinter {
             if (budget.isPresent()) {
                 printBudgetLine(budget.get(), spent);
             } else if (spent > 0) {
-                System.out.println(String.format(Locale.FRANCE, "  %-24s %8.2f €  (pas de budget)",
+                System.out.println(format("  %-24s %8.2f €  (pas de budget)",
                         category.getLabel(), spent));
             }
         }
@@ -93,8 +93,14 @@ public class ReportPrinter {
     private void printBudgetLine(Budget budget, double spent) {
         double usage = budget.getUsagePercentage(spent);
         String status = budget.isNearlyExhausted(spent) ? "  ⚠ bientôt atteint" : "";
-        System.out.println(String.format(Locale.FRANCE, "  %-24s %8.2f / %.2f €  (%.0f %%, reste %.2f €)%s",
+        System.out.println(format("  %-24s %8.2f / %.2f €  (%.0f %%, reste %.2f €)%s",
                 budget.getCategory().getLabel(), spent, budget.getMonthlyLimit(), usage,
                 budget.getRemaining(spent), status));
     }
+
+    // Locale.FRANCE : virgule décimale, comme dans le reste de l'affichage.
+    private String format(String pattern, Object... values) {
+        return String.format(Locale.FRANCE, pattern, values);
+    }
+
 }
