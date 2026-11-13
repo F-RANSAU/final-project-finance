@@ -47,6 +47,7 @@ public class Budget {
         return monthlyLimit;
     }
 
+    // final : appelée par le constructeur, elle ne doit pas pouvoir être redéfinie dans une sous-classe.
     public final void setMonthlyLimit(double monthlyLimit) {
         if (monthlyLimit < 0) {
             throw new InvalidAmountException("Le plafond d'un budget ne peut pas être négatif.");

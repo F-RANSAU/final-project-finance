@@ -18,6 +18,7 @@ public class FinanceService implements TransactionRecorder {
     private final BudgetService budgetService;
     private final SpendingAnalyser analyser;
     private final List<Transaction> history = new ArrayList<>();
+    // Les dépenses sont aussi gardées à part : les calculs de budget n'ont pas à retrouver leur type dans l'historique.
     private final List<Expense> expenses = new ArrayList<>();
 
     public FinanceService(Account account, BudgetService budgetService, SpendingAnalyser analyser) {

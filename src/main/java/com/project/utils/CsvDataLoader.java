@@ -66,8 +66,8 @@ public class CsvDataLoader {
         throw new DataLoadException("Le fichier ne contient aucune ligne ACCOUNT.");
     }
 
-    // Un compte ou un budget invalide arrête le chargement : une configuration fausse doit être corrigée.
-    public List<Budget> parseBudgets(List<String> lines) throws DataLoadException {
+        // Une ligne de configuration invalide (compte, budget, objectif) arrête le chargement : elle doit être corrigée.
+        public List<Budget> parseBudgets(List<String> lines) throws DataLoadException {
         List<Budget> budgets = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
             String[] fields = split(lines.get(i));
