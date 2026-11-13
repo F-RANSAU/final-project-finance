@@ -12,7 +12,6 @@ import com.project.utils.ImportReport;
 import java.nio.file.Path;
 import java.util.List;
 
-
 public class Application {
     private static final String DEFAULT_DATA_FILE = "src/main/resources/data.csv";
 
@@ -36,6 +35,7 @@ public class Application {
             printer.printImportReport(report);
             printer.printStatement();
             printer.printMonthlySummaries();
+            loader.parseSavingsGoal(lines).ifPresent(printer::printSavingsGoal);
         } catch (DataLoadException e) {
             System.out.println("Impossible de démarrer : " + e.getMessage());
         }

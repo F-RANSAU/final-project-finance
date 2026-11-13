@@ -11,6 +11,9 @@ BUDGET;FOOD_AND_DINING;250.00
 BUDGET;LEISURE;100.00
 BUDGET;TRANSPORT;75.00
 
+# GOAL;montant à épargner
+GOAL;5000.00
+
 # INCOME;date;montant;description;source
 # EXPENSE;date;montant;description;catégorie
 INCOME;2026-10-01;1850.00;Salaire d'octobre;Employeur

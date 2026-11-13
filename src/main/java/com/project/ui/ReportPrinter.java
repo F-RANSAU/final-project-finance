@@ -3,6 +3,7 @@ package com.project.ui;
 import com.project.model.Budget;
 import com.project.model.Expense;
 import com.project.model.ExpenseCategory;
+import com.project.model.SavingsGoal;
 import com.project.model.Transaction;
 import com.project.service.BudgetService;
 import com.project.service.FinanceService;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-
 
 public class ReportPrinter {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -64,6 +64,18 @@ public class ReportPrinter {
         }
     }
 
+    public void printSavingsGoal(SavingsGoal goal) {
+        double balance = financeService.getAccount().getBalance();
+        System.out.println();
+        System.out.println(format("--- Objectif : %.2f € d'épargne ---", goal.getTargetAmount()));
+        if (goal.isReached(balance)) {
+            System.out.println("Objectif atteint, bravo !");
+        } else {
+            System.out.println(format("Progression : %.0f %% (il manque %.2f €)",
+                    goal.getProgressPercentage(balance), goal.getRemaining(balance)));
+        }
+    }
+
     private void printMonthlySummary(YearMonth month) {
         List<Expense> expenses = financeService.getExpenses();
         System.out.println();
@@ -102,5 +114,4 @@ public class ReportPrinter {
     private String format(String pattern, Object... values) {
         return String.format(Locale.FRANCE, pattern, values);
     }
-
 }

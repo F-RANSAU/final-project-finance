@@ -9,6 +9,7 @@ import com.project.model.Budget;
 import com.project.model.Expense;
 import com.project.model.ExpenseCategory;
 import com.project.model.Income;
+import com.project.model.SavingsGoal;
 import com.project.service.TransactionRecorder;
 
 import java.io.IOException;
@@ -19,11 +20,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Format du fichier (lignes vides et lignes commençant par "#" ignorées) :
  *   ACCOUNT;numéro;titulaire;solde initial
  *   BUDGET;catégorie;plafond mensuel
+ *   GOAL;montant à épargner
  *   INCOME;date;montant;description;source
  *   EXPENSE;date;montant;description;catégorie
  */
@@ -80,6 +83,22 @@ public class CsvDataLoader {
         return budgets;
     }
 
+    // L'objectif d'épargne est facultatif : un fichier sans ligne GOAL reste valide.
+    public Optional<SavingsGoal> parseSavingsGoal(List<String> lines) throws DataLoadException {
+        for (int i = 0; i < lines.size(); i++) {
+            String[] fields = split(lines.get(i));
+            if (fields.length > 0 && fields[0].equals("GOAL")) {
+                try {
+                    requireColumns(fields, 2);
+                    return Optional.of(new SavingsGoal(parseAmount(fields[1])));
+                } catch (DataLoadException | InvalidAmountException e) {
+                    throw new DataLoadException("Ligne " + (i + 1) + " : objectif invalide (" + e.getMessage() + ")", e);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     // Une transaction invalide est seulement signalée : elle ne doit pas empêcher de charger les suivantes.
     public ImportReport importTransactions(List<String> lines, TransactionRecorder recorder) {
         ImportReport report = new ImportReport();
@@ -102,8 +121,8 @@ public class CsvDataLoader {
                                 parseCategory(fields[4])));
                         report.addImported();
                     }
-                    case "ACCOUNT", "BUDGET" -> {
-                        // déjà traitées par parseAccount et parseBudgets
+                    case "ACCOUNT", "BUDGET", "GOAL" -> {
+                        // déjà traitées par parseAccount, parseBudgets et parseSavingsGoal
                     }
                     default -> report.addRejection(lineNumber, "type de ligne inconnu \"" + fields[0] + "\"");
                 }

@@ -4,6 +4,7 @@ import com.project.exception.DataLoadException;
 import com.project.model.Account;
 import com.project.model.Budget;
 import com.project.model.ExpenseCategory;
+import com.project.model.SavingsGoal;
 import com.project.service.BudgetService;
 import com.project.service.FinanceService;
 import com.project.service.SpendingAnalyser;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,6 +66,24 @@ class CsvDataLoaderTest {
                 () -> loader.parseBudgets(List.of("BUDGET;VOYAGES;150")));
 
         assertTrue(exception.getMessage().startsWith("Ligne 1"));
+    }
+
+    @Test
+    void savingsGoalIsReadFromItsLine() throws DataLoadException {
+        Optional<SavingsGoal> goal = loader.parseSavingsGoal(List.of("BUDGET;SHOPPING;150", "GOAL;5000"));
+
+        assertEquals(5000, goal.orElseThrow().getTargetAmount(), 0.001);
+    }
+
+    @Test
+    void savingsGoalIsEmptyWhenTheFileHasNoGoalLine() throws DataLoadException {
+        assertTrue(loader.parseSavingsGoal(List.of("BUDGET;SHOPPING;150")).isEmpty());
+    }
+
+    @Test
+    void invalidSavingsGoalStopsTheLoading() {
+        assertThrows(DataLoadException.class, () -> loader.parseSavingsGoal(List.of("GOAL;-50")));
+        assertThrows(DataLoadException.class, () -> loader.parseSavingsGoal(List.of("GOAL;abc")));
     }
 
     @Test
