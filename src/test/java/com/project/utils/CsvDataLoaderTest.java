@@ -15,10 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Les méthodes de parsing reçoivent des lignes déjà lues : on peut donc les tester
- * avec des listes écrites dans le test, sans créer de fichier.
- */
+/** Les méthodes de parsing reçoivent des lignes déjà lues : pas besoin de créer de fichier pour les tester. */
 class CsvDataLoaderTest {
     private CsvDataLoader loader;
     private Account account;
