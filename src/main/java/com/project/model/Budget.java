@@ -4,6 +4,8 @@ import com.project.exception.InvalidAmountException;
 
 public class Budget {
     private static final double WARNING_THRESHOLD = 80;
+    // Les double ne sont pas exacts (0.1 + 0.2 = 0.30000000000000004) : on tolère moins d'un centime d'écart.
+    private static final double ROUNDING_TOLERANCE = 0.001;
 
     private final ExpenseCategory category;
     private double monthlyLimit;
@@ -22,11 +24,11 @@ public class Budget {
 
     public boolean allows(double alreadySpent, double newAmount) {
         // Atteindre exactement le plafond reste autorisé.
-        return alreadySpent + newAmount <= monthlyLimit;
+        return alreadySpent + newAmount <= monthlyLimit + ROUNDING_TOLERANCE;
     }
 
     public double getUsagePercentage(double alreadySpent) {
-        // Évite la division par zéro : un plafond nul est consommé dès la première dépense.*/
+        // Évite la division par zéro : un plafond nul est consommé dès la première dépense.
         if (monthlyLimit == 0) {
             return alreadySpent > 0 ? 100 : 0;
         }

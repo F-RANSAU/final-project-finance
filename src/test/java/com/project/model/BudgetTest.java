@@ -25,6 +25,13 @@ class BudgetTest {
     }
 
     @Test
+    void decimalAmountsReachingExactlyTheLimitAreAllowed() {
+        Budget smallBudget = new Budget(ExpenseCategory.SHOPPING, 0.30);
+
+        assertTrue(smallBudget.allows(0.10, 0.20));
+    }
+
+    @Test
     void expenseGoingOverTheLimitIsNotAllowed() {
         assertFalse(budget.allows(100, 50.01));
     }

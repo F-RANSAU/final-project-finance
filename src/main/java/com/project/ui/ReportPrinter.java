@@ -33,7 +33,7 @@ public class ReportPrinter {
 
     public void printWelcome() {
         System.out.println("==============================================");
-        System.out.println("  Mes finances — compte de " + financeService.getAccount().getOwner());
+        System.out.println("  Mes finances - compte de " + financeService.getAccount().getOwner());
         System.out.println("==============================================");
     }
 
@@ -41,7 +41,7 @@ public class ReportPrinter {
         System.out.println();
         System.out.println("Chargement des données : " + report.getImportedCount() + " transactions importées, "
                 + report.getRejections().size() + " lignes écartées.");
-        report.getRejections().forEach(rejection -> System.out.println(rejection));
+        report.getRejections().forEach(System.out::println);
     }
 
     public void printStatement() {
@@ -71,7 +71,7 @@ public class ReportPrinter {
         if (goal.isReached(balance)) {
             System.out.println("Objectif atteint, bravo !");
         } else {
-            System.out.println(format("Progression : %.0f %% (il manque %.2f €)",
+            System.out.println(format("Progression : %.1f %% (il manque %.2f €)",
                     goal.getProgressPercentage(balance), goal.getRemaining(balance)));
         }
     }
@@ -104,8 +104,8 @@ public class ReportPrinter {
 
     private void printBudgetLine(Budget budget, double spent) {
         double usage = budget.getUsagePercentage(spent);
-        String status = budget.isNearlyExhausted(spent) ? "  ⚠ bientôt atteint" : "";
-        System.out.println(format("  %-24s %8.2f / %.2f €  (%.0f %%, reste %.2f €)%s",
+        String status = budget.isNearlyExhausted(spent) ? "  (bientôt atteint)" : "";
+        System.out.println(format("  %-24s %8.2f / %.2f €  (%.1f %%, reste %.2f €)%s",
                 budget.getCategory().getLabel(), spent, budget.getMonthlyLimit(), usage,
                 budget.getRemaining(spent), status));
     }

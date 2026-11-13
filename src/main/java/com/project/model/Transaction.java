@@ -36,7 +36,7 @@ public abstract class Transaction {
 
     public abstract void applyTo(Account account) throws InsufficientBalanceException;
 
-    /** Positif pour une entrée d'argent, négatif pour une sortie.*/
+    // Positif pour une entrée d'argent, négatif pour une sortie.
     public abstract double getSignedAmount();
 
     public abstract String getLabel();

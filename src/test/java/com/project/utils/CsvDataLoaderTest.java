@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** Les méthodes de parsing reçoivent des lignes déjà lues : pas besoin de créer de fichier pour les tester. */
+// Les méthodes de parsing reçoivent des lignes déjà lues : pas besoin de créer de fichier pour les tester.
 class CsvDataLoaderTest {
     private CsvDataLoader loader;
     private Account account;
