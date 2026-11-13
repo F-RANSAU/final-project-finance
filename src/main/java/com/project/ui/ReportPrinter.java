@@ -41,7 +41,7 @@ public class ReportPrinter {
         System.out.println();
         System.out.println("Chargement des données : " + report.getImportedCount() + " transactions importées, "
                 + report.getRejections().size() + " lignes écartées.");
-        report.getRejections().forEach(rejection -> System.out.println("  ✗ " + rejection));
+        report.getRejections().forEach(rejection -> System.out.println(rejection));
     }
 
     public void printStatement() {
