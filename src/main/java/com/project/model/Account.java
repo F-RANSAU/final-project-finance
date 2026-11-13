@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class Account {
     private final String accountNumber;
-    private String owner;
+    private final String owner;
     private double balance;
 
     public Account(String accountNumber, String owner, double initialBalance) {
@@ -17,8 +17,11 @@ public class Account {
         if (initialBalance < 0) {
             throw new InvalidAmountException("Le solde initial ne peut pas être négatif.");
         }
+        if (owner == null || owner.isBlank()) {
+            throw new IllegalArgumentException("Le titulaire du compte ne peut pas être vide.");
+        }
         this.accountNumber = accountNumber;
-        setOwner(owner);
+        this.owner = owner;
         this.balance = initialBalance;
     }
 
@@ -46,13 +49,6 @@ public class Account {
 
     public String getOwner() {
         return owner;
-    }
-
-    public void setOwner(String owner) {
-        if (owner == null || owner.isBlank()) {
-            throw new IllegalArgumentException("Le titulaire du compte ne peut pas être vide.");
-        }
-        this.owner = owner;
     }
 
     public double getBalance() {

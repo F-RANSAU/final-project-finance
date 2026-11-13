@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 public class ImportReport {
     private int importedCount;
     private final List<String> rejections = new ArrayList<>();
 
-    public void addImported() {
+    void addImported() {
         importedCount++;
     }
 
-    public void addRejection(int lineNumber, String reason) {
+    void addRejection(int lineNumber, String reason) {
         rejections.add("Ligne " + lineNumber + " : " + reason);
     }
 

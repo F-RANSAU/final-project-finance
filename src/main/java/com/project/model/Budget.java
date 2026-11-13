@@ -45,7 +45,7 @@ public class Budget {
         return monthlyLimit;
     }
 
-    public void setMonthlyLimit(double monthlyLimit) {
+    public final void setMonthlyLimit(double monthlyLimit) {
         if (monthlyLimit < 0) {
             throw new InvalidAmountException("Le plafond d'un budget ne peut pas être négatif.");
         }

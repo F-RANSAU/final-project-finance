@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Format du fichier (lignes vides et lignes commençant par "#" ignorées) :
  *   ACCOUNT;numéro;titulaire;solde initial
  *   BUDGET;catégorie;plafond mensuel
  *   INCOME;date;montant;description;source
@@ -62,6 +63,7 @@ public class CsvDataLoader {
         throw new DataLoadException("Le fichier ne contient aucune ligne ACCOUNT.");
     }
 
+    // Un compte ou un budget invalide arrête le chargement : une configuration fausse doit être corrigée.
     public List<Budget> parseBudgets(List<String> lines) throws DataLoadException {
         List<Budget> budgets = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
@@ -78,7 +80,7 @@ public class CsvDataLoader {
         return budgets;
     }
 
-
+    // Une transaction invalide est seulement signalée : elle ne doit pas empêcher de charger les suivantes.
     public ImportReport importTransactions(List<String> lines, TransactionRecorder recorder) {
         ImportReport report = new ImportReport();
         for (int i = 0; i < lines.size(); i++) {
@@ -108,6 +110,7 @@ public class CsvDataLoader {
             } catch (BudgetExceededException | InsufficientBalanceException e) {
                 report.addRejection(lineNumber, "refusée, " + e.getMessage());
             } catch (DataLoadException | InvalidAmountException e) {
+                // Le fichier vient de l'extérieur : un montant refusé ici est une erreur de saisie, pas un bug.
                 report.addRejection(lineNumber, "invalide, " + e.getMessage());
             }
         }

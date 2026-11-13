@@ -14,9 +14,7 @@ public class Income extends Transaction {
         return source;
     }
 
-    /**
-     Pas de throws : un dépôt ne peut pas échouer par manque de solde.
-     */
+    // Pas de throws : un dépôt ne peut pas échouer par manque de solde.
     @Override
     public void applyTo(Account account) {
         account.deposit(getAmount());
