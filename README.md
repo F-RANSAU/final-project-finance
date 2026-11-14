@@ -8,7 +8,7 @@ Suivre un compte courant : revenus, dépenses, budget mensuel par catégorie et 
 
 Il faut Java 21 ou plus récent. Les commandes se lancent depuis la racine du projet, parce que l'application lit `src/main/resources/data.csv`.
 
-Avec Maven :
+Avec Maven : 
 
 ```bash
 mvn clean package
