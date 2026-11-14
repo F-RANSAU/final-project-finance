@@ -6,7 +6,9 @@ Suivre un compte courant : revenus, dépenses, budget mensuel par catégorie et 
 
 ## Lancement
 
-Java 21 et Maven, depuis la racine du projet :
+Il faut Java 21 ou plus récent. Les commandes se lancent depuis la racine du projet, parce que l'application lit `src/main/resources/data.csv`.
+
+Avec Maven :
 
 ```bash
 mvn clean package
@@ -17,7 +19,6 @@ Un autre fichier de données peut être passé en argument.
 
 Sans Maven installé : ouvrir le projet dans IntelliJ et lancer `Application` avec la flèche verte.
 Dans un terminal Windows, le symbole € peut s'afficher `?`.
-
 
 ## Fonctionnalités
 
