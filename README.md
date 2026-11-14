@@ -88,4 +88,4 @@ Le compte, les budgets et l'objectif sont créés d'abord, puis chaque transacti
 mvn test
 ```
 
-63 tests JUnit 5.
+64 tests JUnit 5.

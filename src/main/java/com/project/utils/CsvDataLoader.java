@@ -157,7 +157,12 @@ public class CsvDataLoader {
 
     private double parseAmount(String text) throws DataLoadException {
         try {
-            return Double.parseDouble(text);
+            double amount = Double.parseDouble(text);
+            // parseDouble accepte aussi "NaN" et "Infinity", qui rendraient le solde inutilisable.
+            if (Double.isNaN(amount) || Double.isInfinite(amount)) {
+                throw new DataLoadException("montant illisible \"" + text + "\"");
+            }
+            return amount;
         } catch (NumberFormatException e) {
             throw new DataLoadException("montant illisible \"" + text + "\"", e);
         }

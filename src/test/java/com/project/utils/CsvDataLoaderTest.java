@@ -122,6 +122,17 @@ class CsvDataLoaderTest {
     }
 
     @Test
+    void notANumberAndInfiniteAmountsAreRejected() {
+        ImportReport report = loader.importTransactions(List.of(
+                "INCOME;2026-11-01;Infinity;Revenu infini;Employeur",
+                "EXPENSE;2026-11-02;NaN;Montant NaN;SHOPPING"), financeService);
+
+        assertEquals(0, report.getImportedCount());
+        assertEquals(2, report.getRejections().size());
+        assertEquals(100, account.getBalance(), 0.001);
+    }
+
+    @Test
     void businessRefusalsAreReportedWithTheirLineNumber() {
         ImportReport report = loader.importTransactions(List.of(
                 "EXPENSE;2026-11-02;60;Trop cher pour le budget;SHOPPING",
