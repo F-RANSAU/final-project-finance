@@ -98,6 +98,14 @@ class CsvDataLoaderTest {
     }
 
     @Test
+    void incomeWithEmptySourceIsStillImported() {
+        ImportReport report = loader.importTransactions(List.of("INCOME;2026-11-01;200;Salaire;"), financeService);
+
+        assertEquals(1, report.getImportedCount());
+        assertEquals(300, account.getBalance(), 0.001);
+    }
+
+    @Test
     void invalidLinesAreRejectedButTheOthersAreStillImported() {
         ImportReport report = loader.importTransactions(List.of(
                 "EXPENSE;2026-11-02;abc;Montant faux;SHOPPING",

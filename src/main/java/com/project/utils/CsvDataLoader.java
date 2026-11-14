@@ -66,8 +66,8 @@ public class CsvDataLoader {
         throw new DataLoadException("Le fichier ne contient aucune ligne ACCOUNT.");
     }
 
-        // Une ligne de configuration invalide (compte, budget, objectif) arrête le chargement : elle doit être corrigée.
-        public List<Budget> parseBudgets(List<String> lines) throws DataLoadException {
+    // Une ligne de configuration invalide (compte, budget, objectif) arrête le chargement : elle doit être corrigée.
+    public List<Budget> parseBudgets(List<String> lines) throws DataLoadException {
         List<Budget> budgets = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
             String[] fields = split(lines.get(i));
@@ -141,7 +141,8 @@ public class CsvDataLoader {
         if (trimmed.isEmpty() || trimmed.startsWith("#")) {
             return new String[0];
         }
-        String[] fields = trimmed.split(SEPARATOR);
+        // -1 : garde un dernier champ vide ("...;Salaire;"), que split supprimerait sinon.
+        String[] fields = trimmed.split(SEPARATOR, -1);
         for (int i = 0; i < fields.length; i++) {
             fields[i] = fields[i].trim();
         }
