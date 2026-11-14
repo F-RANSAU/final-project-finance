@@ -15,6 +15,8 @@ java -cp target/classes com.project.Application
 
 Un autre fichier de données peut être passé en argument.
 
+Sans Maven installé : ouvrir le projet dans IntelliJ et lancer `Application` avec la flèche verte.
+
 ## Fonctionnalités
 
 - Chargement du compte, des budgets, de l'objectif et des transactions depuis un CSV.
@@ -87,5 +89,7 @@ Le compte, les budgets et l'objectif sont créés d'abord, puis chaque transacti
 ```bash
 mvn test
 ```
+
+Dans IntelliJ : clic droit sur `src/test/java`, puis Run 'All Tests'.
 
 64 tests JUnit 5.
