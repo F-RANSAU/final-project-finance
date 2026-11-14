@@ -16,6 +16,8 @@ java -cp target/classes com.project.Application
 Un autre fichier de données peut être passé en argument.
 
 Sans Maven installé : ouvrir le projet dans IntelliJ et lancer `Application` avec la flèche verte.
+Dans un terminal Windows, le symbole € peut s'afficher `?`.
+
 
 ## Fonctionnalités
 
